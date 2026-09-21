@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { SIGNIN, SIGNUP, HOME, PROJECTDEATILS } from "./utils/route.js";
+import { SIGNIN, SIGNUP, HOME, DASHBOARD, PROJECTDEATILS } from "./utils/route.js";
 import Navbar from "./components/Navabr.jsx";
 import Footer from "./components/Footer.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import DashboardPage from "./pages/DashboardPage.jsx";
 import ProjectDeatilsPage from "./pages/ProjectDeatilsPage.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
@@ -19,17 +20,21 @@ function App() {
         <AuthContextProvider>
           <Navbar />
           <Routes>
+            {/* PUBLIC LANDING / HOME PAGE */}
+            <Route path={HOME} element={<HomePage />} />
+
+            {/* PROTECTED WORKSPACE & PROJECT ROUTES */}
             <Route element={<ProtectedRoute />}>
               <Route
-                path={HOME}
+                path={DASHBOARD}
                 element={
                   <ProjectContextProvider>
-                    <HomePage />
+                    <DashboardPage />
                   </ProjectContextProvider>
                 }
               />
               <Route
-              path={PROJECTDEATILS}
+                path={PROJECTDEATILS}
                 element={
                   <ProjectContextProvider>
                     <ProjectDeatilsPage />
@@ -38,13 +43,14 @@ function App() {
               />
             </Route>
 
+            {/* AUTH ROUTES */}
             <Route element={<PublicRoute />}>
               <Route path={SIGNIN} element={<SignIn />} />
               <Route path={SIGNUP} element={<SignUp />} />
             </Route>
           </Routes>
+          <Footer />
         </AuthContextProvider>
-        <Footer />
       </DarkModeContextProvider>
     </BrowserRouter>
   );

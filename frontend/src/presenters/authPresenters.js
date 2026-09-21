@@ -1,6 +1,6 @@
 import { authModules } from "../modules/authModules.js";
 import { MESSAGES } from "../utils/messages/index.js";
-import { HOME } from "../utils/route.js";
+import { HOME, DASHBOARD, SIGNIN } from "../utils/route.js";
 import toast from "../utils/Toast.jsx";
 
 export const signup = async (formData, { navigate }) => {
@@ -12,7 +12,7 @@ export const signup = async (formData, { navigate }) => {
     await authModules.signUp(formData);
     toast.success(MESSAGES.ACCOUNT_CREATED);
     toast.success(MESSAGES.SIGNIN_PLEASE);
-    navigate(HOME);
+    navigate(SIGNIN);
 
     return { success: true };
   } catch (error) {
@@ -27,7 +27,7 @@ export const signin = async (formData, { setAuthData, navigate }) => {
     const { data } = await authModules.signIn(formData);
     setAuthData(data.result);
     toast.success(MESSAGES.LOGIN_SUCCESSFUL);
-    navigate(HOME);
+    navigate(DASHBOARD);
     return { success: true };
   } catch (error) {
     console.log(error);

@@ -7,7 +7,8 @@ export const authMiddleware = (req, res, next) => {
   if (!token) return res.status(401).json({ message: MESSAGES.ACCESS_DENIED});
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const secret = process.env.JWT_SECRET || process.env.ACCESS_TOKEN_SECRET;
+    const decoded = jwt.verify(token, secret);
     req.userId = decoded?.id;
     
     if (!req.userId) {

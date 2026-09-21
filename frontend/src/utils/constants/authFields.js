@@ -27,7 +27,7 @@ export const authFields = {
   signInFooter: (navigate) => ({
     message: " Don’t have an account?",
     onClick: () => navigate(SIGNUP),
-    spanText: "Sing Up",
+    spanText: "Sign Up",
   }),
 
   signupFields: [
@@ -74,6 +74,6 @@ export const authFields = {
   signUpFooter: (navigate) => ({
     message: "Already have an account?",
     onClick: () => navigate(SIGNIN),
-    spanText: "Sing In",
+    spanText: "Sign In",
   }),
 };
