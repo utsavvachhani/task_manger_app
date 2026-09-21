@@ -43,7 +43,7 @@ export const projectController = {
         req.userId,
       );
       return res
-        .status(201)
+        .status(200)
         .json({ message: MESSAGES.deleteProject, project: data });
     } catch (error) {
       console.log(error);
@@ -58,6 +58,65 @@ export const projectController = {
       return res
         .status(200)
         .json({ message: MESSAGES.FETCHED_SUCCESSFULY, project: data });
+    } catch (error) {
+      console.log(error);
+      return res.status(error.statusCode || 500).json({
+        message: error.message || MESSAGES.SOMETHING_WRONG,
+      });
+    }
+  },
+
+  // Collaboration: Invite member
+  inviteMemberController: async (req, res) => {
+    try {
+      const data = await projectServices.inviteMemberService(
+        req.params.id,
+        req.body,
+        req.userId
+      );
+      return res.status(200).json({
+        message: "Collaborator successfully invited!",
+        project: data,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(error.statusCode || 500).json({
+        message: error.message || MESSAGES.SOMETHING_WRONG,
+      });
+    }
+  },
+
+  // Collaboration: Remove member
+  removeMemberController: async (req, res) => {
+    try {
+      const data = await projectServices.removeMemberService(
+        req.params.id,
+        req.params.memberId,
+        req.userId
+      );
+      return res.status(200).json({
+        message: "Member removed from project",
+        project: data,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(error.statusCode || 500).json({
+        message: error.message || MESSAGES.SOMETHING_WRONG,
+      });
+    }
+  },
+
+  // Collaboration: Get members
+  getMembersController: async (req, res) => {
+    try {
+      const data = await projectServices.getProjectMembersService(
+        req.params.id,
+        req.userId
+      );
+      return res.status(200).json({
+        message: MESSAGES.FETCHED_SUCCESSFULY,
+        data,
+      });
     } catch (error) {
       console.log(error);
       return res.status(error.statusCode || 500).json({

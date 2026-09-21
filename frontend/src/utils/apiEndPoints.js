@@ -12,5 +12,8 @@ export const APIENDPOINTS = {
   CREATEPROJECT: "/project/add",
   UPDATEPROJECT: "/project/update/",
   DELETEPROJECT: "/project/delete/",
-  GETPROJECT: "/project/fetch"
+  GETPROJECT: "/project/fetch",
+  INVITEMEMBER: (projectId) => `/project/${projectId}/invite`,
+  REMOVEMEMBER: (projectId, memberId) => `/project/${projectId}/members/${memberId}`,
+  GETMEMBERS: (projectId) => `/project/${projectId}/members`,
 };

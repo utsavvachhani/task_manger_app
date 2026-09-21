@@ -1,7 +1,7 @@
 import { buttonVariants, TaskSchema, buttonInputTypes } from "../schema";
 
 export const taskFormFields = {
-  addTaskFields: (editTaskId, task, projectOptions) => [
+  addTaskFields: (editTaskId, task, projectOptions, memberOptions = []) => [
     {
       type: buttonInputTypes.TEXT,
       name: "title",
@@ -20,8 +20,18 @@ export const taskFormFields = {
       type: buttonInputTypes.SELECT,
       name: "projectId",
       placeholder: "select the project",
-      value: editTaskId ? task.projectId : "",
+      value: editTaskId ? (task.projectId?._id || task.projectId) : "",
       options: projectOptions,
+    },
+    {
+      type: buttonInputTypes.SELECT,
+      name: "assignedTo",
+      placeholder: "Assign to (Optional)",
+      value: editTaskId ? (task.assignedTo?._id || task.assignedTo || "") : "",
+      options: [
+        { label: "Unassigned", value: "" },
+        ...(memberOptions || []),
+      ],
     },
     {
       type: buttonInputTypes.SELECT,

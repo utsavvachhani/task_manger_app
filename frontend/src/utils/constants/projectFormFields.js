@@ -16,6 +16,13 @@ export const projectFormFields = {
       value: editProjectId ? project.desc : "",
       required: true,
     },
+    {
+      type: buttonInputTypes.SELECT,
+      name: "icon",
+      placeholder: "Select Project Icon",
+      value: editProjectId ? project.icon || "📁" : "📁",
+      options: ["📁", "🚀", "💡", "⚡", "🎨", "🛠️", "🎯", "🔥", "📊"],
+    },
   ],
   addProjectButtons: (handleCancle, editProjectId) => [
     {

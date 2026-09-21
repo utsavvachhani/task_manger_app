@@ -108,4 +108,49 @@ export const projectsPresenters = {
       return { success: false };
     }
   },
+
+  inviteMember: async (projectId, inviteData, setProjects) => {
+    try {
+      const { data } = await projectModules.inviteMember(projectId, inviteData);
+      if (setProjects) {
+        setProjects((projects) =>
+          projects.map((p) => (p._id === projectId ? { ...p, ...data.project } : p))
+        );
+      }
+      toast.success(data.message || "Invitation sent successfully!");
+      return { success: true, project: data.project };
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || MESSAGES.SOMETHING_WRONG);
+      return { success: false };
+    }
+  },
+
+  removeMember: async (projectId, memberId, setProjects) => {
+    try {
+      const { data } = await projectModules.removeMember(projectId, memberId);
+      if (setProjects) {
+        setProjects((projects) =>
+          projects.map((p) => (p._id === projectId ? { ...p, ...data.project } : p))
+        );
+      }
+      toast.success(data.message || "Member removed successfully");
+      return { success: true, project: data.project };
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || MESSAGES.SOMETHING_WRONG);
+      return { success: false };
+    }
+  },
+
+  getMembers: async (projectId) => {
+    try {
+      const { data } = await projectModules.getMembers(projectId);
+      return { success: true, data: data.data };
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || MESSAGES.SOMETHING_WRONG);
+      return { success: false };
+    }
+  },
 };

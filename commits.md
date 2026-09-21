@@ -5,3 +5,5 @@
 8.4 - feat: add public modern landing page with interactive pricing & FAQ, separate protected dashboard route (/dashboard), and improved UI
 
 8.5 - fix: add JWT_SECRET to .env, add fallback to ACCESS_TOKEN_SECRET in token and auth middleware, set NODE_ENV to development
+
+8.6 - feat: Notion-style collaborative workspace with multi-project sidebar, task member assignments, project invites, and dual Board & Table views
